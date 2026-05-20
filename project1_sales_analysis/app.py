@@ -120,9 +120,7 @@ else:
     # SQLITE DATABASE SETUP
     # =========================
 
-    conn = sqlite3.connect(
-        'database/superstore.db'
-    )
+    conn = sqlite3.connect(':memory:')
 
     cursor = conn.cursor()
 
