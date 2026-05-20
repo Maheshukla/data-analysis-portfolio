@@ -172,7 +172,7 @@ else:
                 )
 
                 csv_df = pd.read_csv(
-                    "data/SampleSuperstore.csv"
+                    "project1_sales_analysis/data/SampleSuperstore.csv"
                 )
 
         except:
@@ -183,14 +183,14 @@ else:
             )
 
             csv_df = pd.read_csv(
-                "data/SampleSuperstore.csv"
+                "project1_sales_analysis/data/SampleSuperstore.csv"
             )
 
     else:
 
         # Default Dataset
         csv_df = pd.read_csv(
-            "data/SampleSuperstore.csv"
+            "project1_sales_analysis/data/SampleSuperstore.csv"
         )
 
     # Save Dataset to SQL
