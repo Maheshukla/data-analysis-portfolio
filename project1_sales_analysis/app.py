@@ -1248,7 +1248,7 @@ else:
         forecast_df = filtered_df.copy()
 
         forecast_df = pd.read_csv(
-            "data/Sample - Superstore.csv",
+            "project1_sales_analysis/data/Sample - Superstore.csv",
             encoding='latin1'
         )
 
