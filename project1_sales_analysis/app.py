@@ -1618,3 +1618,85 @@ else:
             benford_compare,
             use_container_width=True
         )
+
+        # =========================
+    # SUSPICIOUS RECORDS DETECTOR
+    # =========================
+
+    st.subheader("🚨 Suspicious Transactions")
+
+    # Add First Digit Column
+    suspicious_df = filtered_data.copy()
+
+    suspicious_df['First_Digit'] = (
+        suspicious_df[benford_column]
+        .astype(str)
+        .str[0]
+    )
+
+    # High Sales Threshold
+    sales_threshold = (
+        suspicious_df['Sales']
+        .mean()
+        + 2 * suspicious_df['Sales'].std()
+    )
+
+    # High Quantity Threshold
+    quantity_threshold = (
+        suspicious_df['Quantity']
+        .mean()
+        + 2 * suspicious_df['Quantity'].std()
+    )
+
+    # Suspicious Conditions
+    suspicious_records = suspicious_df[
+        (
+            suspicious_df['Sales']
+            > sales_threshold
+        )
+        |
+        (
+            suspicious_df['Quantity']
+            > quantity_threshold
+        )
+        |
+        (
+            suspicious_df['Profit']
+            < 0
+        )
+    ]
+
+    # Show Count
+    st.metric(
+        "Suspicious Records Found",
+        len(suspicious_records)
+    )
+
+    # Show Table
+    st.dataframe(
+        suspicious_records[
+            [
+                'Order ID',
+                'Category',
+                'Sub-Category',
+                'Region',
+                'Sales',
+                'Profit',
+                'Quantity',
+                'First_Digit'
+            ]
+        ],
+        use_container_width=True
+    )
+
+    # Optional Download
+    csv_download = suspicious_records.to_csv(
+        index=False
+    )
+
+    st.download_button(
+        "📥 Download Suspicious Records",
+        csv_download,
+        file_name="suspicious_records.csv",
+        mime="text/csv"
+    )
