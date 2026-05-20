@@ -14,6 +14,7 @@ from fpdf import FPDF
 from prophet import Prophet
 from sklearn.ensemble import IsolationForest
 import sqlite3
+import math
 
 # Page Config
 st.set_page_config(
@@ -403,7 +404,7 @@ else:
     # TABS
     # ======================
 
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11, tab12, tab13, tab14 = st.tabs([
         "Overview",
         "Regional Analysis",
         "Product Analysis",
@@ -416,7 +417,8 @@ else:
         "ML Insights",
         "Reports",
         "Forecasting",
-        "SQL Analytics"
+        "SQL Analytics",
+        "Benford Analysis"
     ])
 
     # ======================
@@ -1501,5 +1503,118 @@ else:
 
         st.dataframe(
             category_sql,
+            use_container_width=True
+        )
+
+        # =========================
+    # BENFORD LAW ANALYSIS
+    # =========================
+
+    with tab14:
+
+        st.subheader("🔍 Benford Law Analysis")
+
+        st.write(
+            "Analyze numerical patterns for potential anomalies or fraud detection."
+        )
+
+        # Select Column
+        benford_column = st.selectbox(
+            "Select Numeric Column",
+            ['Sales', 'Profit', 'Quantity']
+        )
+
+        # Prepare Data
+        benford_data = filtered_data[
+            benford_column
+        ].dropna()
+
+        benford_data = benford_data[
+            benford_data > 0
+        ]
+
+        # Extract First Digits
+        first_digits = benford_data.astype(str).str[0].astype(int)
+
+        actual_counts = (
+            first_digits
+            .value_counts(normalize=True)
+            .sort_index()
+        )
+
+        # Expected Benford Distribution
+        benford_distribution = {
+            d: math.log10(1 + 1/d)
+            for d in range(1, 10)
+        }
+
+        expected_df = pd.DataFrame({
+            'Digit': list(benford_distribution.keys()),
+            'Expected': list(benford_distribution.values())
+        })
+
+        actual_df = pd.DataFrame({
+            'Digit': actual_counts.index,
+            'Actual': actual_counts.values
+        })
+
+        benford_compare = pd.merge(
+            expected_df,
+            actual_df,
+            on='Digit',
+            how='left'
+        )
+
+        benford_compare['Actual'] = (
+            benford_compare['Actual']
+            .fillna(0)
+        )
+
+        # Chart
+        fig_benford = px.bar(
+            benford_compare,
+            x='Digit',
+            y=['Expected', 'Actual'],
+            barmode='group',
+            title=f'Benford Analysis - {benford_column}'
+        )
+
+        st.plotly_chart(
+            fig_benford,
+            use_container_width=True
+        )
+
+        # Difference Score
+        benford_compare['Difference'] = abs(
+            benford_compare['Expected']
+            - benford_compare['Actual']
+        )
+
+        anomaly_score = benford_compare[
+            'Difference'
+        ].sum()
+
+        st.metric(
+            "Benford Deviation Score",
+            round(anomaly_score, 4)
+        )
+
+        # Insight
+        if anomaly_score > 0.3:
+
+            st.error(
+                "⚠ Significant deviation detected. "
+                "Possible suspicious pattern."
+            )
+
+        else:
+
+            st.success(
+                "✅ Distribution appears reasonably normal."
+            )
+
+        # Show Data
+        st.dataframe(
+            benford_compare,
             use_container_width=True
         )
