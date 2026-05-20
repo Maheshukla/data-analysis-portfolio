@@ -1673,18 +1673,25 @@ else:
     )
 
     # Show Table
+    # Safe Columns Display
+
+    display_columns = [
+        col for col in [
+            'Order ID',
+            'Category',
+            'Sub-Category',
+            'Region',
+            'Sales',
+            'Profit',
+            'Quantity',
+            'First_Digit'
+        ]
+        if col in suspicious_records.columns
+    ]
+
     st.dataframe(
         suspicious_records[
-            [
-                'Order ID',
-                'Category',
-                'Sub-Category',
-                'Region',
-                'Sales',
-                'Profit',
-                'Quantity',
-                'First_Digit'
-            ]
+            display_columns
         ],
         use_container_width=True
     )
