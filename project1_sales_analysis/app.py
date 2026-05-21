@@ -119,29 +119,51 @@ else:
     }
 
     /* =========================
-    REAL STICKY TABS FIX
+    ULTIMATE STICKY TAB FIX
     ========================= */
 
     .stTabs {
         position: sticky;
         top: 0;
-        z-index: 9999;
+        z-index: 999999 !important;
         background-color: #0E1117;
         padding-top: 10px;
         padding-bottom: 10px;
     }
 
-    div[data-baseweb="tab-list"] {
-        gap: 10px;
+    /* REAL TAB CONTAINER */
+
+    .stTabs [data-baseweb="tab-list"] {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 999999 !important;
+
+        background-color: #0E1117 !important;
+
         overflow-x: auto;
         white-space: nowrap;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        border-bottom: 1px solid #333;
+
         scrollbar-width: none;
     }
 
-    div[data-baseweb="tab"] {
+    /* TAB DESIGN */
+
+    .stTabs [data-baseweb="tab"] {
         background-color: #111827;
         border-radius: 10px;
         padding: 10px 18px;
+        margin-right: 8px;
+    }
+
+    /* HIDE SCROLLBAR */
+
+    .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+        display: none;
     }
 
     </style>
