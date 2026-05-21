@@ -115,16 +115,24 @@ else:
     }
 
     /* =========================
-    STICKY TABS
+    STICKY TABS FIX
     ========================= */
 
-    .stTabs [data-baseweb="tab-list"] {
+    div[data-baseweb="tab-list"] {
         position: sticky;
         top: 0;
-        z-index: 999;
+        z-index: 1000;
         background-color: #0E1117;
         padding-top: 10px;
         padding-bottom: 10px;
+        border-bottom: 1px solid #333;
+    }
+
+    div[data-baseweb="tab"] {
+        background-color: #111827;
+        border-radius: 8px;
+        margin-right: 5px;
+        padding: 8px 16px;
     }
 
     </style>
