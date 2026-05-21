@@ -114,6 +114,19 @@ else:
         color: white !important;
     }
 
+    /* =========================
+    STICKY TABS
+    ========================= */
+
+    .stTabs [data-baseweb="tab-list"] {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background-color: #0E1117;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
     </style>
     """, unsafe_allow_html=True)
 
@@ -669,136 +682,136 @@ else:
             title="Discount vs Profit"
         )
 
-    st.plotly_chart(fig11, use_container_width=True)
+        st.plotly_chart(fig11, use_container_width=True)
 
-    st.divider()
+        st.divider()
 
-    st.subheader("🚨 Anomaly Detection")
+        st.subheader("🚨 Anomaly Detection")
 
-    if selected_anomaly_col:
+        if selected_anomaly_col:
 
-        anomaly_df = filtered_data[[selected_anomaly_col]].dropna()
+            anomaly_df = filtered_data[[selected_anomaly_col]].dropna()
 
-        model = IsolationForest(
-            contamination=contamination,
-            random_state=42
-        )
-
-        anomaly_df['Anomaly'] = model.fit_predict(
-            anomaly_df[[selected_anomaly_col]]
-        )
-
-        anomaly_df['Anomaly'] = anomaly_df['Anomaly'].map({
-            1: 'Normal',
-            -1: 'Anomaly'
-        })
-
-        anomaly_count = (
-            anomaly_df['Anomaly'] == 'Anomaly'
-        ).sum()
-
-        st.metric(
-            "Detected Anomalies",
-            anomaly_count
-        )
-
-        fig_anomaly = px.scatter(
-            anomaly_df,
-            y=selected_anomaly_col,
-            color='Anomaly',
-            title=f'Anomaly Detection - {selected_anomaly_col}'
-        )
-
-        st.plotly_chart(
-            fig_anomaly,
-            use_container_width=True
-        )
-
-        csv = anomaly_df.to_csv(index=False)
-
-        st.download_button(
-            "⬇ Download Anomaly Report",
-            csv,
-            "anomaly_report.csv",
-            "text/csv"
-        )
-
-    @st.cache_resource
-    def train_model(data):
-
-        ml_df = data.copy()
-
-        required_cols = [
-            'Sales',
-            'Quantity',
-            'Discount',
-            'Profit',
-            'Category',
-            'Region',
-            'Segment',
-            'Ship Mode',
-            'Sub-Category',
-            'State'
-        ]
-
-        ml_df = ml_df[required_cols].dropna()
-
-        label_encoders = {}
-
-        categorical_cols = [
-            'Category',
-            'Region',
-            'Segment',
-            'Ship Mode',
-            'Sub-Category',
-            'State'
-        ]
-
-        for col in categorical_cols:
-
-            le = LabelEncoder()
-
-            ml_df[col] = le.fit_transform(
-                ml_df[col]
+            model = IsolationForest(
+                contamination=contamination,
+                random_state=42
             )
 
-            label_encoders[col] = le
+            anomaly_df['Anomaly'] = model.fit_predict(
+                anomaly_df[[selected_anomaly_col]]
+            )
 
-        X = ml_df.drop('Profit', axis=1)
+            anomaly_df['Anomaly'] = anomaly_df['Anomaly'].map({
+                1: 'Normal',
+                -1: 'Anomaly'
+            })
 
-        y = ml_df['Profit']
+            anomaly_count = (
+                anomaly_df['Anomaly'] == 'Anomaly'
+            ).sum()
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X,
-            y,
-            test_size=0.2,
-            random_state=42
-        )
+            st.metric(
+                "Detected Anomalies",
+                anomaly_count
+            )
 
-        model = XGBRegressor(
-            n_estimators=300,
-            learning_rate=0.05,
-            max_depth=6,
-            random_state=42
-        )
+            fig_anomaly = px.scatter(
+                anomaly_df,
+                y=selected_anomaly_col,
+                color='Anomaly',
+                title=f'Anomaly Detection - {selected_anomaly_col}'
+            )
 
-        model.fit(X_train, y_train)
+            st.plotly_chart(
+                fig_anomaly,
+                use_container_width=True
+            )
 
-        y_pred = model.predict(X_test)
+            csv = anomaly_df.to_csv(index=False)
 
-        r2 = r2_score(y_test, y_pred)
+            st.download_button(
+                "⬇ Download Anomaly Report",
+                csv,
+                "anomaly_report.csv",
+                "text/csv"
+            )
 
-        mae = mean_absolute_error(y_test, y_pred)
+        @st.cache_resource
+        def train_model(data):
 
-        return (
-            model,
-            label_encoders,
-            X,
-            y_test,
-            y_pred,
-            r2,
-            mae
-        )
+            ml_df = data.copy()
+
+            required_cols = [
+                'Sales',
+                'Quantity',
+                'Discount',
+                'Profit',
+                'Category',
+                'Region',
+                'Segment',
+                'Ship Mode',
+                'Sub-Category',
+                'State'
+            ]
+
+            ml_df = ml_df[required_cols].dropna()
+
+            label_encoders = {}
+
+            categorical_cols = [
+                'Category',
+                'Region',
+                'Segment',
+                'Ship Mode',
+                'Sub-Category',
+                'State'
+            ]
+
+            for col in categorical_cols:
+
+                le = LabelEncoder()
+
+                ml_df[col] = le.fit_transform(
+                    ml_df[col]
+                )
+
+                label_encoders[col] = le
+
+            X = ml_df.drop('Profit', axis=1)
+
+            y = ml_df['Profit']
+
+            X_train, X_test, y_train, y_test = train_test_split(
+                X,
+                y,
+                test_size=0.2,
+                random_state=42
+            )
+
+            model = XGBRegressor(
+                n_estimators=300,
+                learning_rate=0.05,
+                max_depth=6,
+                random_state=42
+            )
+
+            model.fit(X_train, y_train)
+
+            y_pred = model.predict(X_test)
+
+            r2 = r2_score(y_test, y_pred)
+
+            mae = mean_absolute_error(y_test, y_pred)
+
+            return (
+                model,
+                label_encoders,
+                X,
+                y_test,
+                y_pred,
+                r2,
+                mae
+            )
 
 
     # =========================
@@ -1620,90 +1633,90 @@ else:
         )
 
         # =========================
-    # SUSPICIOUS RECORDS DETECTOR
-    # =========================
+        # SUSPICIOUS RECORDS DETECTOR
+        # =========================
 
-    st.subheader("🚨 Suspicious Transactions")
+        st.subheader("🚨 Suspicious Transactions")
 
-    # Add First Digit Column
-    suspicious_df = filtered_data.copy()
+        # Add First Digit Column
+        suspicious_df = filtered_data.copy()
 
-    suspicious_df['First_Digit'] = (
-        suspicious_df[benford_column]
-        .astype(str)
-        .str[0]
-    )
+        suspicious_df['First_Digit'] = (
+            suspicious_df[benford_column]
+            .astype(str)
+            .str[0]
+        )
 
-    # High Sales Threshold
-    sales_threshold = (
-        suspicious_df['Sales']
-        .mean()
-        + 2 * suspicious_df['Sales'].std()
-    )
-
-    # High Quantity Threshold
-    quantity_threshold = (
-        suspicious_df['Quantity']
-        .mean()
-        + 2 * suspicious_df['Quantity'].std()
-    )
-
-    # Suspicious Conditions
-    suspicious_records = suspicious_df[
-        (
+        # High Sales Threshold
+        sales_threshold = (
             suspicious_df['Sales']
-            > sales_threshold
+            .mean()
+            + 2 * suspicious_df['Sales'].std()
         )
-        |
-        (
+
+        # High Quantity Threshold
+        quantity_threshold = (
             suspicious_df['Quantity']
-            > quantity_threshold
+            .mean()
+            + 2 * suspicious_df['Quantity'].std()
         )
-        |
-        (
-            suspicious_df['Profit']
-            < 0
-        )
-    ]
 
-    # Show Count
-    st.metric(
-        "Suspicious Records Found",
-        len(suspicious_records)
-    )
-
-    # Show Table
-    # Safe Columns Display
-
-    display_columns = [
-        col for col in [
-            'Order ID',
-            'Category',
-            'Sub-Category',
-            'Region',
-            'Sales',
-            'Profit',
-            'Quantity',
-            'First_Digit'
+        # Suspicious Conditions
+        suspicious_records = suspicious_df[
+            (
+                suspicious_df['Sales']
+                > sales_threshold
+            )
+            |
+            (
+                suspicious_df['Quantity']
+                > quantity_threshold
+            )
+            |
+            (
+                suspicious_df['Profit']
+                < 0
+            )
         ]
-        if col in suspicious_records.columns
-    ]
 
-    st.dataframe(
-        suspicious_records[
-            display_columns
-        ],
-        use_container_width=True
-    )
+        # Show Count
+        st.metric(
+            "Suspicious Records Found",
+            len(suspicious_records)
+        )
 
-    # Optional Download
-    csv_download = suspicious_records.to_csv(
-        index=False
-    )
+        # Show Table
+        # Safe Columns Display
 
-    st.download_button(
-        "📥 Download Suspicious Records",
-        csv_download,
-        file_name="suspicious_records.csv",
-        mime="text/csv"
-    )
+        display_columns = [
+            col for col in [
+                'Order ID',
+                'Category',
+                'Sub-Category',
+                'Region',
+                'Sales',
+                'Profit',
+                'Quantity',
+                'First_Digit'
+            ]
+            if col in suspicious_records.columns
+        ]
+
+        st.dataframe(
+            suspicious_records[
+                display_columns
+            ],
+            use_container_width=True
+        )
+
+        # Optional Download
+        csv_download = suspicious_records.to_csv(
+            index=False
+        )
+
+        st.download_button(
+            "📥 Download Suspicious Records",
+            csv_download,
+            file_name="suspicious_records.csv",
+            mime="text/csv"
+        )
