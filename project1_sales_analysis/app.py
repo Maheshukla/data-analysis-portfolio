@@ -77,10 +77,6 @@ else:
     st.title("📊 Superstore Sales Dashboard")
 
     st.markdown("""
-    <div class="sticky-tabs-wrapper">
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
     <style>
 
     /* SIDEBAR FULL FIX */
@@ -1759,7 +1755,3 @@ else:
             file_name="suspicious_records.csv",
             mime="text/csv"
         )
-
-    st.markdown("""
-    </div>
-    """, unsafe_allow_html=True)
