@@ -77,6 +77,10 @@ else:
     st.title("📊 Superstore Sales Dashboard")
 
     st.markdown("""
+    <div class="sticky-tabs-wrapper">
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
     <style>
 
     /* SIDEBAR FULL FIX */
@@ -115,24 +119,29 @@ else:
     }
 
     /* =========================
-    STICKY TABS FIX
+    REAL STICKY TABS FIX
     ========================= */
 
-    div[data-baseweb="tab-list"] {
+    .stTabs {
         position: sticky;
         top: 0;
-        z-index: 1000;
+        z-index: 9999;
         background-color: #0E1117;
         padding-top: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #333;
+    }
+
+    div[data-baseweb="tab-list"] {
+        gap: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
     }
 
     div[data-baseweb="tab"] {
         background-color: #111827;
-        border-radius: 8px;
-        margin-right: 5px;
-        padding: 8px 16px;
+        border-radius: 10px;
+        padding: 10px 18px;
     }
 
     </style>
@@ -1728,3 +1737,7 @@ else:
             file_name="suspicious_records.csv",
             mime="text/csv"
         )
+
+    st.markdown("""
+    </div>
+    """, unsafe_allow_html=True)
