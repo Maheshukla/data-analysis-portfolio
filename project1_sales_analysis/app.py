@@ -115,51 +115,68 @@ else:
     }
 
     /* =========================
-    ULTIMATE STICKY TAB FIX
+    FINAL STICKY NAVBAR FIX
     ========================= */
 
+    /* REMOVE EXTRA GAP */
+
     .stTabs {
-        position: sticky;
-        top: 0;
-        z-index: 999999 !important;
-        background-color: #0E1117;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        margin-top: -20px !important;
     }
 
-    /* REAL TAB CONTAINER */
+    /* MAIN TAB BAR */
 
-    .stTabs [data-baseweb="tab-list"] {
+    div[data-baseweb="tab-list"] {
+
         position: sticky !important;
+
         top: 0 !important;
+
         z-index: 999999 !important;
 
-        background-color: #0E1117 !important;
+        background: #0E1117 !important;
 
-        overflow-x: auto;
-        white-space: nowrap;
+        padding-top: 6px !important;
 
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-bottom: 6px !important;
 
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid #222 !important;
 
-        scrollbar-width: none;
-    }
+        overflow-x: auto !important;
 
-    /* TAB DESIGN */
+        white-space: nowrap !important;
 
-    .stTabs [data-baseweb="tab"] {
-        background-color: #111827;
-        border-radius: 10px;
-        padding: 10px 18px;
-        margin-right: 8px;
+        scrollbar-width: none !important;
     }
 
     /* HIDE SCROLLBAR */
 
-    .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+    div[data-baseweb="tab-list"]::-webkit-scrollbar {
         display: none;
+    }
+
+    /* TAB BUTTONS */
+
+    button[data-baseweb="tab"] {
+
+        background-color: #111827 !important;
+
+        border-radius: 10px !important;
+
+        padding: 10px 18px !important;
+
+        margin-right: 8px !important;
+
+        transition: 0.3s;
+    }
+
+    /* ACTIVE TAB */
+
+    button[data-baseweb="tab"][aria-selected="true"] {
+
+        background-color: #1f2937 !important;
+
+        border-bottom: 2px solid #ff4b4b !important;
     }
 
     </style>
@@ -447,6 +464,11 @@ else:
     col5.metric("Profit Margin", f"{profit_margin:.2f}%")
 
     st.divider()
+
+    st.markdown(
+        "<div id='tab-sticky'></div>",
+        unsafe_allow_html=True
+    )
 
     # ======================
     # TABS
