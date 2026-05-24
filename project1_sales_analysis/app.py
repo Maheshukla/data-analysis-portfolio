@@ -160,11 +160,11 @@ if not st.session_state.logged_in:
 
         if (
 
-            username == "admin"
+            username.strip() == "admin"
 
             and
 
-            password == "admin123"
+            password.strip() == "admin123"
 
         ):
 
