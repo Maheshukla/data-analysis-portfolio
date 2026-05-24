@@ -1,0 +1,288 @@
+/* =========================
+   GLOBAL APP
+========================= */
+
+.stApp {
+
+    background-color: #030712;
+
+    color: white;
+}
+
+/* =========================
+   MAIN HEADER
+========================= */
+
+.main-header {
+
+    background: linear-gradient(
+        135deg,
+        #111827,
+        #1e293b
+    );
+
+    padding: 35px;
+
+    border-radius: 22px;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+    border: 1px solid #374151;
+
+    box-shadow:
+        0 0 25px rgba(0,0,0,0.45);
+}
+
+.main-header h1 {
+
+    color: white;
+
+    font-size: 42px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.main-header p {
+
+    color: #d1d5db;
+
+    font-size: 18px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+section[data-testid="stSidebar"] {
+
+    background: linear-gradient(
+        180deg,
+        #071028,
+        #0f172a
+    );
+
+    border-right: 1px solid #1f2937;
+
+    width: 320px !important;
+}
+
+/* =========================
+   SIDEBAR TEXT
+========================= */
+
+section[data-testid="stSidebar"] * {
+
+    color: white !important;
+}
+
+/* =========================
+   KPI CARDS
+========================= */
+
+div[data-testid="metric-container"] {
+
+    background: linear-gradient(
+        135deg,
+        #111827,
+        #1f2937
+    );
+
+    border: 1px solid #374151;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 15px rgba(0,0,0,0.35);
+
+    transition: 0.3s ease-in-out;
+}
+
+div[data-testid="metric-container"]:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 0 18px rgba(0,212,255,0.25);
+}
+
+/* =========================
+   TABS
+========================= */
+
+button[data-baseweb="tab"] {
+
+    background-color: #111827 !important;
+
+    border-radius: 12px !important;
+
+    padding: 10px 22px !important;
+
+    margin-right: 8px !important;
+
+    color: white !important;
+
+    border: 1px solid #374151 !important;
+
+    transition: 0.3s;
+}
+
+button[data-baseweb="tab"]:hover {
+
+    background-color: #1e293b !important;
+
+    transform: translateY(-2px);
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+
+    border-bottom: 2px solid #00d4ff !important;
+
+    background: linear-gradient(
+        135deg,
+        #1f2937,
+        #0f172a
+    ) !important;
+
+    box-shadow:
+        0 0 12px rgba(0,212,255,0.25);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.stButton > button {
+
+    background: linear-gradient(
+        135deg,
+        #0284c7,
+        #0369a1
+    );
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 10px 18px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.stButton > button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 15px rgba(0,212,255,0.3);
+}
+
+/* =========================
+   DOWNLOAD BUTTON
+========================= */
+
+.stDownloadButton > button {
+
+    background: linear-gradient(
+        135deg,
+        #059669,
+        #047857
+    );
+
+    color: white;
+
+    border-radius: 12px;
+
+    border: none;
+
+    transition: 0.3s;
+}
+
+.stDownloadButton > button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 15px rgba(16,185,129,0.35);
+}
+
+/* =========================
+   DATAFRAME
+========================= */
+
+[data-testid="stDataFrame"] {
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid #374151;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+
+    width: 10px;
+
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #334155;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #475569;
+}
+
+/* =========================
+   EXPANDERS
+========================= */
+
+.streamlit-expanderHeader {
+
+    background-color: #111827;
+
+    border-radius: 12px;
+
+    border: 1px solid #374151;
+}
+
+/* =========================
+   SELECTBOX
+========================= */
+
+div[data-baseweb="select"] {
+
+    border-radius: 12px;
+}
+
+/* =========================
+   SLIDER
+========================= */
+
+.stSlider {
+
+    padding-top: 10px;
+}
