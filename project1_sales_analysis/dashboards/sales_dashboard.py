@@ -255,7 +255,7 @@ def sales_dashboard():
                 )
 
                 csv_df = pd.read_csv(
-                    "data/SampleSuperstore.csv"
+                    "project1_sales_analysis/data/SampleSuperstore.csv"
                 )
 
         except:
@@ -266,14 +266,14 @@ def sales_dashboard():
             )
 
             csv_df = pd.read_csv(
-                "data/SampleSuperstore.csv"
+                "project1_sales_analysis/data/SampleSuperstore.csv"
             )
 
     else:
 
         # Default Dataset
         csv_df = pd.read_csv(
-            "data/SampleSuperstore.csv"
+            "project1_sales_analysis/data/SampleSuperstore.csv"
         )
 
     # Save Dataset to SQL
@@ -1337,7 +1337,7 @@ def sales_dashboard():
         forecast_df = filtered_df.copy()
 
         forecast_df = pd.read_csv(
-            "data/Sample - Superstore.csv",
+            "data-analysis-portfolio/data/Sample - Superstore.csv",
             encoding='latin1'
         )
 
