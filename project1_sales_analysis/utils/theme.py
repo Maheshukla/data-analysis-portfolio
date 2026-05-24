@@ -3,7 +3,7 @@ import streamlit as st
 def apply_theme():
 
     with open(
-        "assets/style.css",
+        "project1_sales_analysis/assets/style.css",
         encoding="utf-8"
     ) as f:
 
