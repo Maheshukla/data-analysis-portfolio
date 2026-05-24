@@ -27,7 +27,7 @@ def load_data(uploaded_file=None):
         else:
 
             df = pd.read_csv(
-                "datasets/healthcare_dataset.csv"
+                "project1_sales_analysis/datasets/healthcare_dataset.csv"
             )
 
         # =========================
