@@ -1337,7 +1337,7 @@ def sales_dashboard():
         forecast_df = filtered_df.copy()
 
         forecast_df = pd.read_csv(
-            "data-analysis-portfolio/data/Sample - Superstore.csv",
+            "project1_sales_analysis/data/Sample - Superstore.csv",
             encoding='latin1'
         )
 
