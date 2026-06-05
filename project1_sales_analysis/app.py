@@ -8,6 +8,10 @@ from dashboards.healthcare_dashboard import (
     healthcare_dashboard
 )
 
+from dashboards.sports_dashboard import (
+    sports_dashboard
+)
+
 # =========================
 # PAGE CONFIG
 # =========================
@@ -247,17 +251,17 @@ else:
         "Select Dashboard",
 
         [
-
             "📈 Sales Analytics",
 
             "🏥 Healthcare Analytics",
+
+            "🏏 Sports Analytics",
 
             "📦 Inventory Analytics",
 
             "💰 Finance Analytics",
 
             "🚚 Supply Chain Analytics"
-
         ]
     )
 
@@ -283,6 +287,20 @@ else:
 
             st.error(
                 f"Healthcare Dashboard Error: {e}"
+            )
+
+            st.exception(e)
+
+    elif selected_dashboard == "🏏 Sports Analytics":
+
+        try:
+
+            sports_dashboard()
+
+        except Exception as e:
+
+            st.error(
+                f"Sports Dashboard Error: {e}"
             )
 
             st.exception(e)

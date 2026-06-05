@@ -7,3 +7,7 @@ scikit-learn
 xgboost
 fpdf
 prophet
+numpy
+seaborn
+sqlalchemy
+openpyxl
