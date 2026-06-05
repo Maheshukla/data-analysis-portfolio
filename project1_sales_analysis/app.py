@@ -8,7 +8,7 @@ from dashboards.healthcare_dashboard import (
     healthcare_dashboard
 )
 
-from dashboards.sports_dashboard import (
+from project3_sports_analytics.dashboards.sports_dashboard import (
     sports_dashboard
 )
 
