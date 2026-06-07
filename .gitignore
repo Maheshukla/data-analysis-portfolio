@@ -6,5 +6,12 @@ __pycache__/
 *.db
 .ipynb_checkpoints/
 
+# Streamlit cache
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db
+
 project3_sports_analytics/data/ODI_Match_Data.csv
 project3_sports_analytics/data/deliverywise_data.csv

@@ -1,15 +1,22 @@
 import streamlit as st
+from pathlib import Path
 
 def apply_theme():
 
+    css_path = (
+        Path(__file__)
+        .resolve()
+        .parent.parent
+        / "assets"
+        / "style.css"
+    )
+
     with open(
-        "assets/style.css",
+        css_path,
         encoding="utf-8"
     ) as f:
 
-        css = f.read()
-
-    st.markdown(
-        f"<style>{css}</style>",
-        unsafe_allow_html=True
-    )
+        st.markdown(
+            f"<style>{f.read()}</style>",
+            unsafe_allow_html=True
+        )

@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from pathlib import Path
 
 
 # =========================
@@ -9,8 +10,16 @@ import streamlit as st
 @st.cache_data
 def load_odi_match_info():
 
+    data_path = (
+        Path(__file__)
+        .resolve()
+        .parent.parent
+        / "data"
+        / "ODI_Match_info.csv"
+    )
+
     df = pd.read_csv(
-        "data/ODI_Match_info.csv",
+        data_path,
         low_memory=False
     )
 
@@ -24,8 +33,16 @@ def load_odi_match_info():
 @st.cache_data
 def load_odi_ball_data():
 
+    data_path = (
+        Path(__file__)
+        .resolve()
+        .parent.parent
+        / "data"
+        / "ODI_Match_Data.csv"
+    )
+
     df = pd.read_csv(
-        "data/ODI_Match_Data.csv",
+        data_path,
         low_memory=False
     )
 
@@ -39,8 +56,16 @@ def load_odi_ball_data():
 @st.cache_data
 def load_ipl_matches():
 
+    data_path = (
+        Path(__file__)
+        .resolve()
+        .parent.parent
+        / "data"
+        / "matches_updated_ipl_upto_2025.csv"
+    )
+
     df = pd.read_csv(
-        "data/matches_updated_ipl_upto_2025.csv",
+        data_path,
         low_memory=False
     )
 

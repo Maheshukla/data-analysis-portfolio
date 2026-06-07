@@ -1,6 +1,6 @@
 import streamlit as st
 
-from utils.helpers import (
+from ..utils.helpers import (
     column_exists,
     safe_mean
 )

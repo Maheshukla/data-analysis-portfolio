@@ -1,13 +1,13 @@
 streamlit
 pandas
+numpy
 matplotlib
 seaborn
 plotly
 scikit-learn
 xgboost
-fpdf
 prophet
-numpy
-seaborn
 sqlalchemy
 openpyxl
+fpdf
+reportlab

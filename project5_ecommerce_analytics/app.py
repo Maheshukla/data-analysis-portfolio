@@ -1,0 +1,3 @@
+from dashboards.ecommerce_dashboard import ecommerce_dashboard
+
+ecommerce_dashboard()

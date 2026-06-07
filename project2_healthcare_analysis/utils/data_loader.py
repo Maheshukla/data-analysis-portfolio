@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from pathlib import Path
 
 # =========================
 # LOAD HEALTHCARE DATA
@@ -26,8 +27,16 @@ def load_data(uploaded_file=None):
 
         else:
 
+            dataset_path = (
+                Path(__file__)
+                .resolve()
+                .parent.parent
+                / "datasets"
+                / "healthcare_dataset.csv"
+            )
+
             df = pd.read_csv(
-                "datasets/healthcare_dataset.csv"
+                dataset_path
             )
 
         # =========================

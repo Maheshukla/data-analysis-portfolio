@@ -1,13 +1,13 @@
 import streamlit as st
 import pandas as pd
-from components.sidebar import render_sidebar
-from components.kpi_cards import render_kpis
-from utils.data_loader import (
+from ..components.sidebar import render_sidebar
+from ..components.kpi_cards import render_kpis
+from ..utils.data_loader import (
     load_odi_match_info,
     load_odi_ball_data
 )
-from utils.preprocessing import preprocess_data
-from components.charts import (
+from ..utils.preprocessing import preprocess_data
+from ..components.charts import (
     top_winning_teams_chart,
     top_venues_chart,
     top_player_of_match_chart,
@@ -22,15 +22,15 @@ from components.charts import (
     player_comparison_stats,
     player_comparison_bar_chart
 )
-from models.prediction_model import (
+from ..models.prediction_model import (
     train_match_winner_model
 )
 
-from models.anomaly_detection import (
+from ..models.anomaly_detection import (
     detect_anomalies
 )
 
-from models.forecasting_model import (
+from ..models.forecasting_model import (
     forecast_matches
 )
 

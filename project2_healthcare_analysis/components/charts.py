@@ -1,7 +1,7 @@
 import plotly.express as px
 import streamlit as st
 
-from utils.helpers import column_exists
+from ..utils.helpers import column_exists
 
 # =========================
 # COMMON CHART STYLE

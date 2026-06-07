@@ -1,10 +1,10 @@
 import streamlit as st
 
-from dashboards.sales_dashboard import (
+from .dashboards.sales_dashboard import (
     sales_dashboard
 )
 
-from dashboards.healthcare_dashboard import (
+from .dashboards.healthcare_dashboard import (
     healthcare_dashboard
 )
 
