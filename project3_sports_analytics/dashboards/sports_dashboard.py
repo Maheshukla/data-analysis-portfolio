@@ -46,7 +46,17 @@ def sports_dashboard():
 
         df = load_odi_match_info()
 
-        ball_df = load_odi_ball_data()
+        try:
+
+            ball_df = load_odi_ball_data()
+
+        except Exception:
+
+            st.warning(
+                "Ball-by-ball dataset not available in deployed version."
+            )
+
+            ball_df = pd.DataFrame()
 
     df = preprocess_data(
         df,
@@ -244,11 +254,23 @@ def sports_dashboard():
             "⚔️ Player Comparison"
         )
 
-        players = sorted(
-            ball_df["striker"]
-            .dropna()
-            .unique()
-        )
+        if not ball_df.empty and "striker" in ball_df.columns:
+
+            if not ball_df.empty and "striker" in ball_df.columns:
+
+                players = sorted(
+                    ball_df["striker"]
+                    .dropna()
+                    .unique()
+                )
+
+            else:
+
+                players = []
+
+        else:
+
+            players = []
 
         player1 = st.selectbox(
             "Player 1",
