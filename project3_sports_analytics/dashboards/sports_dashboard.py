@@ -239,14 +239,32 @@ def sports_dashboard():
         col1, col2 = st.columns(2)
 
         with col1:
-            top_run_scorers_chart(
-                ball_df
-            )
+
+            if not ball_df.empty:
+
+                top_run_scorers_chart(
+                    ball_df
+                )
+
+            else:
+
+                st.info(
+                    "Run scorer data unavailable."
+                )
 
         with col2:
-            top_wicket_takers_chart(
-                ball_df
-            )
+
+            if not ball_df.empty:
+
+                top_wicket_takers_chart(
+                    ball_df
+                )
+
+            else:
+
+                st.info(
+                    "Wicket taker data unavailable."
+                )
 
         st.divider()
 
@@ -272,24 +290,49 @@ def sports_dashboard():
 
             players = []
 
-        player1 = st.selectbox(
-            "Player 1",
-            players,
-            key="player1"
-        )
+        if players:
 
-        player2 = st.selectbox(
-            "Player 2",
-            players,
-            index=1,
-            key="player2"
-        )
+            player1 = st.selectbox(
+                "Player 1",
+                players,
+                key="player1"
+            )
 
-        comparison = player_comparison_stats(
-            ball_df,
-            player1,
-            player2
-        )
+            player2 = st.selectbox(
+                "Player 2",
+                players,
+                index=min(1, len(players)-1),
+                key="player2"
+            )
+
+            comparison = player_comparison_stats(
+                ball_df,
+                player1,
+                player2
+            )
+
+            comparison_df = pd.DataFrame(
+                comparison,
+                index=[
+                    player1,
+                    player2
+                ]
+            )
+
+            st.dataframe(
+                comparison_df,
+                use_container_width=True
+            )
+
+            player_comparison_bar_chart(
+                comparison_df
+            )
+
+        else:
+
+            st.info(
+                "Player analytics unavailable in cloud deployment because the ball-by-ball dataset is not included."
+            )
 
         comparison_df = pd.DataFrame(
             comparison,
